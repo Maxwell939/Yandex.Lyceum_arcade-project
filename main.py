@@ -1,9 +1,7 @@
 import arcade
 
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE
 
-SCREEN_WIDTH = 400
-SCREEN_HEIGHT = 800
-SCREEN_TITLE = "JumpGame"
 
 def main():
     window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
