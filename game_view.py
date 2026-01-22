@@ -3,7 +3,7 @@ import random
 import arcade
 from pyglet.graphics import Batch
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, GRAVITY, MOVE_SPEED, MAX_PLATFORMS
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, GRAVITY, MOVE_SPEED, MAX_PLATFORMS, JUMP_SPEED
 from platform_ import Platform
 from player import Player
 
@@ -18,7 +18,7 @@ class GameView(arcade.View):
         self.platform = None
 
         self.player = None
-        self.spawn_point = (SCREEN_WIDTH / 2, SCREEN_HEIGHT)
+        self.spawn_point = (SCREEN_WIDTH // 2, 60)
 
         self.engine = None
 
@@ -42,6 +42,7 @@ class GameView(arcade.View):
             gravity_constant=GRAVITY,
             platforms=self.platforms
         )
+        self.engine.disable_multi_jump()
 
     def on_draw(self):
         self.clear()
@@ -68,6 +69,9 @@ class GameView(arcade.View):
             platform = Platform()
             platform.left, platform.bottom = platform_x, platform_y
             self.platforms.append(platform)
+
+        if self.engine.can_jump(y_distance=6):
+            self.engine.jump(JUMP_SPEED)
 
         self.engine.update()
 
