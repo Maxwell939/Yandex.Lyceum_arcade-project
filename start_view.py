@@ -4,7 +4,7 @@ from pyglet.graphics import Batch
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 
 
-class SetupView(arcade.View):
+class StartView(arcade.View):
     def __init__(self, game_view):
         super().__init__()
         arcade.set_background_color(arcade.color.BLACK)
