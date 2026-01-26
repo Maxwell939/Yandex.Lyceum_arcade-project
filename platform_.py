@@ -8,5 +8,7 @@ class Platform(arcade.Sprite):
         self.scale_y = 0.5
 
     def update(self, delta_time):
+        super().update(delta_time)
+
         if self.rect.top < 0:
             self.kill()
