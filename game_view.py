@@ -73,9 +73,8 @@ class GameView(arcade.View):
         if self.background_scroll <= -SCREEN_HEIGHT:
             self.background_scroll = 0
 
-        if self.player.scroll != 0:
-            for platform in self.platforms:
-                platform.center_y += self.player.scroll
+        for platform in self.platforms:
+            platform.change_y = self.player.scroll
 
         if len(self.platforms) < MAX_PLATFORMS:
             platform_x = random.randint(0, int(SCREEN_WIDTH - self.platform.width))
@@ -85,9 +84,6 @@ class GameView(arcade.View):
             self.platforms.append(platform)
 
         self.platforms.update()
-
-        if self.engine.can_jump(y_distance=6):
-            self.engine.jump(JUMP_SPEED)
 
         self.engine.update()
 

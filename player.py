@@ -1,6 +1,6 @@
 import arcade
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, SCROLL_THRESHOLD, GRAVITY
+from constants import SCREEN_WIDTH, SCROLL_THRESHOLD
 
 
 class Player(arcade.Sprite):
