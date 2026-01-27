@@ -19,6 +19,28 @@ class Enemy(arcade.Sprite):
             self.kill()
 
 
+class EnemyBat(Enemy):
+    def __init__(self, y):
+        super().__init__(y)
+        for i in range(1, 8):
+            self.textures.append(arcade.load_texture(f"textures/bat/bat{i}.png"))
+
+        self.cur_texture_index = 0
+        self.cur_texture_index = 0
+        self.texture = self.textures[self.cur_texture_index]
+        self.texture_change_time = 0
+        self.texture_change_delay = 0.05
+
+        self.left = random.randint(SCREEN_WIDTH // 10, SCREEN_WIDTH - int(self.width) - SCREEN_WIDTH // 10)
+
+    def update_animation(self, delta_time: float = 1 / 60):
+        self.texture_change_time += delta_time
+        if self.texture_change_time >= self.texture_change_delay:
+            self.texture_change_time -= self.texture_change_delay
+            self.cur_texture_index = (self.cur_texture_index + 1) % len(self.textures)
+            self.texture = self.textures[self.cur_texture_index]
+
+
 class EnemyBird(Enemy):
     def __init__(self, y):
         super().__init__(y)
@@ -28,7 +50,7 @@ class EnemyBird(Enemy):
         self.cur_texture_index = 0
         self.texture = self.textures[self.cur_texture_index]
         self.texture_change_time = 0
-        self.texture_change_delay = 0.05  # секунд на кадр
+        self.texture_change_delay = 0.05
 
         direction = random.choice((RIGHT_FACING, LEFT_FACING))
         if direction == RIGHT_FACING:
