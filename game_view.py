@@ -90,15 +90,15 @@ class GameView(arcade.View):
         self.platforms.update()
 
         if len(self.enemies) == 0:
-            self.enemies.append(EnemyBird(SCREEN_HEIGHT * 3 + random.choice((-1, 1)) * random.randint(50, 200)))
-            self.enemies.append(EnemyBat(SCREEN_HEIGHT * 2+ random.choice((-1, 1)) * random.randint(50, 200)))
+            self.enemies.append(EnemyBird(SCREEN_HEIGHT * 2 + random.choice((-1, 1)) * random.randint(50, 200)))
+            self.enemies.append(EnemyBat(SCREEN_HEIGHT * 2 + random.choice((-1, 1)) * random.randint(50, 200)))
 
         for enemy in self.enemies:
             enemy.change_y = self.player.scroll
 
         self.enemies.update(self.player)
 
-        self.enemies.update_animation()
+        self.enemies.update_animation(delta_time)
 
         if self.engine.can_jump(y_distance=6):
             self.engine.jump(JUMP_SPEED)
