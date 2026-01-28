@@ -6,11 +6,12 @@ from pyglet.graphics import Batch
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, GRAVITY, MOVE_SPEED, MAX_PLATFORMS, JUMP_SPEED
 from enemies import EnemyBird, EnemyBat
 from physics_engine import OneWayPlatformPhysicsEngine
-from platform_ import Platform
+from platforms import Platform
 from player import Player
 from score_manager import ScoreManager
 from game_over_view import GameOverView
 from sound_manager import SoundManager
+
 
 class GameView(arcade.View):
     def __init__(self):
@@ -37,7 +38,6 @@ class GameView(arcade.View):
         self.score_text = None
         self.high_score_text = None
         self.total_scroll = 0
-        ... #text
 
     def setup(self):
         self.player_list = arcade.SpriteList()
@@ -106,7 +106,7 @@ class GameView(arcade.View):
         self.platforms.update()
 
         if len(self.enemies) == 0:
-            self.enemies.append(EnemyBird(SCREEN_HEIGHT * 2 + random.choice((-1, 1)) * random.randint(50, 200)))
+            self.enemies.append(EnemyBird(SCREEN_HEIGHT * 3 + random.choice((-1, 1)) * random.randint(50, 200)))
             self.enemies.append(EnemyBat(SCREEN_HEIGHT * 2 + random.choice((-1, 1)) * random.randint(50, 200)))
 
         for enemy in self.enemies:
