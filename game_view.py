@@ -3,7 +3,8 @@ import random
 import arcade
 from pyglet.graphics import Batch
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, GRAVITY, MOVE_SPEED, MAX_PLATFORMS, JUMP_SPEED
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, GRAVITY, MOVE_SPEED, MAX_PLATFORMS, JUMP_SPEED, \
+    MIN_DELTA_PLATFORMS_DISTANCE, ENEMIES_SPAWN_SCORE_THRESHOLD
 from enemies import EnemyBird, EnemyBat
 from physics_engine import OneWayPlatformPhysicsEngine
 from platforms import Platform
@@ -21,6 +22,7 @@ class GameView(arcade.View):
         self.player_list = arcade.SpriteList()
         self.platforms = arcade.SpriteList()
         self.platform = None
+        self.delta_platforms_distance = 0
         self.enemies = arcade.SpriteList()
 
         self.player = None
@@ -95,16 +97,19 @@ class GameView(arcade.View):
         self.score_manager.update_score(new_score)
         self.update_score_display()
 
+        if self.delta_platforms_distance <= MIN_DELTA_PLATFORMS_DISTANCE:
+            self.delta_platforms_distance = int(self.score // 200)
         if len(self.platforms) < MAX_PLATFORMS:
             platform_x = random.randint(0, int(SCREEN_WIDTH - self.platform.width))
-            platform_y = self.platforms[-1].top + self.platform.height + random.randint(80, 120)
+            platform_y = (self.platforms[-1].top + self.platform.height +
+                          random.randint(10 + self.delta_platforms_distance, 50 + self.delta_platforms_distance))
             platform = Platform()
             platform.left, platform.bottom = platform_x, platform_y
             self.platforms.append(platform)
 
         self.platforms.update()
 
-        if len(self.enemies) == 0 and self.score > 2500:
+        if len(self.enemies) == 0 and self.score > ENEMIES_SPAWN_SCORE_THRESHOLD:
             self.enemies.append(EnemyBird(SCREEN_HEIGHT * 3 + random.choice((-1, 1)) * random.randint(100, 500)))
             self.enemies.append(EnemyBat(SCREEN_HEIGHT * 2 + random.choice((-1, 1)) * random.randint(100, 500)))
 
