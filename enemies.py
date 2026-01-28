@@ -10,6 +10,7 @@ class Enemy(arcade.Sprite):
     def __init__(self, y: int):
         super().__init__()
         self.bottom = y
+        self.make_explosion = False
 
     def update(self, player: arcade.Sprite, delta_time: float = 1 / 60) -> None:
         super().update(delta_time)
@@ -17,8 +18,7 @@ class Enemy(arcade.Sprite):
             if (self.collides_with_sprite(player)
                     and player.center_y > self.center_y
                     and player.change_y < 0):
-                self.kill()
-                ... # TODO: add particles
+                self.make_explosion = True
             else:
                 player.is_dead = True
                 sound_manager = SoundManager()

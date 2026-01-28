@@ -1,3 +1,5 @@
+import arcade
+
 SCREEN_WIDTH: int = 400
 SCREEN_HEIGHT: int = 800
 SCREEN_TITLE: str = "JumpGame"
@@ -15,3 +17,10 @@ RIGHT_FACING: int = 1
 LEFT_FACING: int = -1
 ENEMY_SCALE: float = 1.5
 ENEMIES_SPAWN_SCORE_THRESHOLD: int = 2500
+SPARK_TEXTURES = [
+    arcade.make_soft_circle_texture(8, arcade.color.ALIZARIN_CRIMSON),
+    arcade.make_soft_circle_texture(8, arcade.color.COQUELICOT),
+    arcade.make_soft_circle_texture(8, arcade.color.LAVA),
+    arcade.make_soft_circle_texture(8, arcade.color.ELECTRIC_CRIMSON),
+    arcade.make_soft_circle_texture(8, arcade.color.DARK_TANGERINE)
+]

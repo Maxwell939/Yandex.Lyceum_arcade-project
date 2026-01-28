@@ -52,7 +52,7 @@ class SoundManager:
 
     def play_death_from_monster(self):
         if self.death_from_monster_sound and self.sounds_loaded:
-            arcade.play_sound(self.death_from_monster_sound, volume=0.3)
+            arcade.play_sound(self.death_from_monster_sound, volume=0.2)
     
     def is_loaded(self):
         return self.sounds_loaded
