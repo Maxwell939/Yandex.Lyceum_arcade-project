@@ -11,34 +11,30 @@ class ScoreManager:
             base_path = os.path.dirname(os.path.abspath(__file__))
         self.records_dir = os.path.join(base_path, "records")
         self.score_file = os.path.join(self.records_dir, "highscore.txt")
-        
         self.load_high_score()
     
     def load_high_score(self):
-        try:
-            if not os.path.exists(self.records_dir):
-                os.makedirs(self.records_dir, exist_ok=True)
-            if os.path.exists(self.score_file):
+        if not os.path.exists(self.records_dir):
+            os.makedirs(self.records_dir, exist_ok=True)
+        if os.path.exists(self.score_file):
+            try:
                 with open(self.score_file, 'r') as f:
                     content = f.read().strip()
                     if content.isdigit():
                         self.high_score = int(content)
-                    else:
-                        self.high_score = 0
-            else:
+            except:
                 self.high_score = 0
-                with open(self.score_file, 'w') as f:
-                    f.write("0")
-                
-        except Exception as e:
+        else:
             self.high_score = 0
+            with open(self.score_file, 'w') as f:
+                f.write("0")
     
     def save_high_score(self):
         try:
             with open(self.score_file, 'w') as f:
                 f.write(str(self.high_score))
-        except Exception as e:
-            print(f"Ошибка сохранения рекорда: {e}")
+        except:
+            pass
     
     def update_score(self, new_score):
         if new_score > self.current_score:
