@@ -56,7 +56,6 @@ class GameView(arcade.View):
 
         self.left, self.right, self.up, self.down = False, False, False, False
         self.background_scroll = 0
-        self.was_jumping = False
 
         self.emitters = None
 
@@ -86,7 +85,6 @@ class GameView(arcade.View):
 
         self.score_manager.reset()
         self.score = 0
-        self.was_jumping = False
         self.create_score_display()
 
     def on_draw(self):
@@ -150,7 +148,6 @@ class GameView(arcade.View):
 
             if self.score > MOVING_PLATFORMS_SCORE_THRESHOLD:
                 self.moving_platforms_amount = int(self.score) // (SCREEN_HEIGHT * 2)
-            print(self.moving_platforms_amount)
 
         self.platforms.update()
 
@@ -178,15 +175,7 @@ class GameView(arcade.View):
             if e.can_reap():
                 self.emitters.remove(e)
 
-        if self.engine.can_jump(y_distance=6):
-            self.engine.jump(JUMP_SPEED)
-            if not self.was_jumping:
-                self.sound_manager.play_jump()
-                self.was_jumping = True
-        else:
-            self.was_jumping = False
-
-        self.engine.update()
+        self.engine.update(sound_manager=self.sound_manager)
 
         if self.player.is_dead:
             game_over_view = GameOverView(self.score_manager, self.sound_manager)
